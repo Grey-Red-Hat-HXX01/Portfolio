@@ -1,29 +1,102 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Pseudonym — Portfolio</title>
-  <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pseudonym — Portfolio</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>Pseudonym — Portfolio</h1>
-    <section>
-      <h2>About</h2>
-      <p>Long-form text about skills and philosophy. Avoid personal identifiers.</p>
-    </section>
-    <section>
-      <h2>Contact</h2>
-      <p>Tox ID: YOUR_TOX_ID_HERE</p>
-      <p>Proton Mail (PGP preferred): you@proton.me</p>
-      <pre>
------BEGIN PGP PUBLIC KEY BLOCK-----
-(your PGP public key here)
------END PGP PUBLIC KEY BLOCK-----
-      </pre>
-      <p>Please encrypt messages before sending.</p>
-    </section>
-  </main>
+<main class="wrap">
+  <header>
+    <h1>PSEUDONYM</h1>
+    <p class="tag">operator · security researcher · privacy-minded</p>
+  </header>
+
+  <section class="card">
+    <h2>About</h2>
+    <div class="content">
+      <p>
+        Long-form: I research system & network security, threat modelling, and defensive techniques. I publish writeups and advisories focused on helping organizations improve resilience. I disclose vulnerabilities responsibly and believe in transparent, ethical remediation.
+      </p>
+      <p>
+        My work emphasizes privacy-first practices, secure tooling, and pragmatic threat hunting. I prefer encrypted, verifiable contact and do not accept unsolicited attachments or exploit code — send reproducible steps and MH/IOC samples only if encrypted.
+      </p>
+      <p>
+        This page is intentionally minimal. Do not include personal identifying information. If you need protective services or to report an incident, follow official channels and encrypt sensitive details.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Contact</h2>
+    <div class="content contact-grid">
+      <div>
+        <strong>Tox ID</strong>
+        <pre id="tox">YOUR_TOX_ID</pre>
+        <button class="btn" data-copy="#tox">Copy Tox ID</button>
+      </div>
+
+      <div>
+        <strong>Vox / Handle</strong>
+        <pre id="vox">YOUR_VOX_HANDLE</pre>
+        <button class="btn" data-copy="#vox">Copy Vox Handle</button>
+      </div>
+
+      <div>
+        <strong>Proton Mail (PGP preferred)</strong>
+        <p><a id="proton" href="mailto:YOUR_PROTON_EMAIL">YOUR_PROTON_EMAIL</a></p>
+        <p>Encrypt with PGP; public key below.</p>
+      </div>
+    </div>
+
+    <div class="pgp-block">
+      <strong>PGP public key</strong>
+      <pre id="pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
+YOUR_PGP_PUBLIC_KEY_HERE
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+    </div>
+    <p class="note">Please encrypt sensitive messages. Do not send identifying information about third parties here.</p>
+  </section>
+
+  <section class="card">
+    <h2>Services & Intake</h2>
+    <div class="content">
+      <p>
+        For vulnerability reports: include affected host/domain, reproduction steps, and PoC (if safe). Do not send exploits or personal data. I will triage and advise on next steps; if necessary I will coordinate with vendors or CERTs. I do not engage in doxxing or vigilante activity.
+      </p>
+      <p>
+        For requests about protective services or witness assistance: send an initial encrypted description; I will respond with a checklist and referrals. Emergency situations should be reported to local authorities and national cybercrime units.
+      </p>
+    </div>
+  </section>
+
+  <footer class="card small">
+    <p class="muted">Accessible only via its URL. No data is stored on this page — contact via Proton (PGP) or Tox.</p>
+  </footer>
+</main>
+
+<script>
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-copy]');
+  if (!btn) return;
+  const sel = document.querySelector(btn.getAttribute('data-copy'));
+  if (!sel) return;
+  try {
+    await navigator.clipboard.writeText(sel.textContent.trim());
+    btn.textContent = 'Copied';
+    setTimeout(()=> btn.textContent = 'Copy ' + (sel.id === 'tox' ? 'Tox ID' : 'Vox Handle'), 1500);
+  } catch (err) {
+    // fallback
+    const range = document.createRange();
+    range.selectNodeContents(sel);
+    const s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(range);
+    try { document.execCommand('copy'); btn.textContent='Copied'; setTimeout(()=> btn.textContent='Copy',1500);} catch {}
+    s.removeAllRanges();
+  }
+});
+</script>
 </body>
 </html>
