@@ -17,6 +17,7 @@
     <section class="block about">
       <h2>About</h2>
       <div class="text">
+        <p>I don’t have any qualifications.</p>
         <p>
           I research system and network security, threat modelling, and defensive techniques. I publish writeups and advisories focused on improving organizational resilience. I disclose vulnerabilities responsibly and prefer encrypted, verifiable contact. Do not include unsolicited attachments or exploit code; provide reproducible steps and safe samples only when encrypted.
         </p>
@@ -34,14 +35,6 @@
           <pre id="tox">YOUR_TOX_ID</pre>
           <button class="btn" data-copy="#tox">Copy Tox ID</button>
           <p class="hint">Use Tox for encrypted conversation. Do not send PII about third parties here.</p>
-        </div>
-
-        <div class="card pgp">
-          <strong>PGP public key (optional)</strong>
-          <pre id="pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
-YOUR_PGP_PUBLIC_KEY
------END PGP PUBLIC KEY BLOCK-----</pre>
-          <p class="hint">Encrypt sensitive messages before sending over Tox.</p>
         </div>
       </div>
     </section>
@@ -61,6 +54,7 @@ YOUR_PGP_PUBLIC_KEY
 
   <footer class="vhs-footer">
     <p class="small">Accessible only via its URL. No submissions are stored on this page; contact via Tox.</p>
+    <p class="hat">grey · red hat</p>
   </footer>
 
   <div class="vhs-scanline"></div>
@@ -79,7 +73,6 @@ document.addEventListener('click', async (e) => {
     btn.textContent = 'Copied';
     setTimeout(()=> btn.textContent = prev, 1400);
   } catch (err) {
-    // fallback
     const range = document.createRange();
     range.selectNodeContents(sel);
     const s = window.getSelection();
