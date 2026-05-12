@@ -3,78 +3,68 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Pseudonym — Portfolio</title>
+<title>HXX01 — Portfolio</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="wrap">
-  <header>
-    <h1>PSEUDONYM</h1>
-    <p class="tag">operator · security researcher · privacy-minded</p>
+<div class="vhs-wrap">
+  <header class="vhs-header">
+    <h1 class="glow">HXX01</h1>
+    <p class="sub">operator · security researcher · privacy-minded</p>
   </header>
 
-  <section class="card">
-    <h2>About</h2>
-    <div class="content">
-      <p>
-        Long-form: I research system & network security, threat modelling, and defensive techniques. I publish writeups and advisories focused on helping organizations improve resilience. I disclose vulnerabilities responsibly and believe in transparent, ethical remediation.
-      </p>
-      <p>
-        My work emphasizes privacy-first practices, secure tooling, and pragmatic threat hunting. I prefer encrypted, verifiable contact and do not accept unsolicited attachments or exploit code — send reproducible steps and MH/IOC samples only if encrypted.
-      </p>
-      <p>
-        This page is intentionally minimal. Do not include personal identifying information. If you need protective services or to report an incident, follow official channels and encrypt sensitive details.
-      </p>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Contact</h2>
-    <div class="content contact-grid">
-      <div>
-        <strong>Tox ID</strong>
-        <pre id="tox">YOUR_TOX_ID</pre>
-        <button class="btn" data-copy="#tox">Copy Tox ID</button>
+  <main class="panel">
+    <section class="block about">
+      <h2>About</h2>
+      <div class="text">
+        <p>
+          I research system and network security, threat modelling, and defensive techniques. I publish writeups and advisories focused on improving organizational resilience. I disclose vulnerabilities responsibly and prefer encrypted, verifiable contact. Do not include unsolicited attachments or exploit code; provide reproducible steps and safe samples only when encrypted.
+        </p>
+        <p>
+          This portfolio intentionally omits personal identifiers. Content here is public only via its URL; use Tox for private conversations.
+        </p>
       </div>
+    </section>
 
-      <div>
-        <strong>Vox / Handle</strong>
-        <pre id="vox">YOUR_VOX_HANDLE</pre>
-        <button class="btn" data-copy="#vox">Copy Vox Handle</button>
-      </div>
+    <section class="block contact">
+      <h2>Contact — Tox only</h2>
+      <div class="grid">
+        <div class="card idcard">
+          <strong>Tox ID</strong>
+          <pre id="tox">YOUR_TOX_ID</pre>
+          <button class="btn" data-copy="#tox">Copy Tox ID</button>
+          <p class="hint">Use Tox for encrypted conversation. Do not send PII about third parties here.</p>
+        </div>
 
-      <div>
-        <strong>Proton Mail (PGP preferred)</strong>
-        <p><a id="proton" href="mailto:YOUR_PROTON_EMAIL">YOUR_PROTON_EMAIL</a></p>
-        <p>Encrypt with PGP; public key below.</p>
-      </div>
-    </div>
-
-    <div class="pgp-block">
-      <strong>PGP public key</strong>
-      <pre id="pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
-YOUR_PGP_PUBLIC_KEY_HERE
+        <div class="card pgp">
+          <strong>PGP public key (optional)</strong>
+          <pre id="pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
+YOUR_PGP_PUBLIC_KEY
 -----END PGP PUBLIC KEY BLOCK-----</pre>
-    </div>
-    <p class="note">Please encrypt sensitive messages. Do not send identifying information about third parties here.</p>
-  </section>
+          <p class="hint">Encrypt sensitive messages before sending over Tox.</p>
+        </div>
+      </div>
+    </section>
 
-  <section class="card">
-    <h2>Services & Intake</h2>
-    <div class="content">
-      <p>
-        For vulnerability reports: include affected host/domain, reproduction steps, and PoC (if safe). Do not send exploits or personal data. I will triage and advise on next steps; if necessary I will coordinate with vendors or CERTs. I do not engage in doxxing or vigilante activity.
-      </p>
-      <p>
-        For requests about protective services or witness assistance: send an initial encrypted description; I will respond with a checklist and referrals. Emergency situations should be reported to local authorities and national cybercrime units.
-      </p>
-    </div>
-  </section>
+    <section class="block services">
+      <h2>Services & Intake</h2>
+      <div class="text">
+        <p>
+          For vulnerability reports: include affected host/domain, reproduction steps, impact, and safe PoC (no exploits). I will triage and advise on remediation or coordinate with vendors/CERTs when appropriate. I will not engage in doxxing, vigilante actions, or attempts to identify private individuals.
+        </p>
+        <p>
+          For protective assistance: send an initial encrypted summary over Tox. For emergencies, contact local authorities and national cyber units.
+        </p>
+      </div>
+    </section>
+  </main>
 
-  <footer class="card small">
-    <p class="muted">Accessible only via its URL. No data is stored on this page — contact via Proton (PGP) or Tox.</p>
+  <footer class="vhs-footer">
+    <p class="small">Accessible only via its URL. No submissions are stored on this page; contact via Tox.</p>
   </footer>
-</main>
+
+  <div class="vhs-scanline"></div>
+</div>
 
 <script>
 document.addEventListener('click', async (e) => {
@@ -82,10 +72,12 @@ document.addEventListener('click', async (e) => {
   if (!btn) return;
   const sel = document.querySelector(btn.getAttribute('data-copy'));
   if (!sel) return;
+  const text = sel.textContent.trim();
   try {
-    await navigator.clipboard.writeText(sel.textContent.trim());
+    await navigator.clipboard.writeText(text);
+    const prev = btn.textContent;
     btn.textContent = 'Copied';
-    setTimeout(()=> btn.textContent = 'Copy ' + (sel.id === 'tox' ? 'Tox ID' : 'Vox Handle'), 1500);
+    setTimeout(()=> btn.textContent = prev, 1400);
   } catch (err) {
     // fallback
     const range = document.createRange();
@@ -93,7 +85,7 @@ document.addEventListener('click', async (e) => {
     const s = window.getSelection();
     s.removeAllRanges();
     s.addRange(range);
-    try { document.execCommand('copy'); btn.textContent='Copied'; setTimeout(()=> btn.textContent='Copy',1500);} catch {}
+    try { document.execCommand('copy'); btn.textContent='Copied'; setTimeout(()=> btn.textContent='Copy Tox ID',1400);} catch {}
     s.removeAllRanges();
   }
 });
