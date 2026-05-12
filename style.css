@@ -59,3 +59,15 @@ letter-spacing:2px}
   .glow{font-size:2.2rem}
   body{padding:18px}
 }
+
+.hat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between images and dot */
+}
+
+.hat-image {
+  height: 30px; /* Adjust size as needed */
+  width: auto;
+}
