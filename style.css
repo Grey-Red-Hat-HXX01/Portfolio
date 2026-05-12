@@ -1,3 +1,19 @@
-body{font-family:system-ui,Segoe UI,Roboto,Helvetica;max-width:800px;margin:40px auto;padding:0 20px;color:#111}
-h1{color:#b00}
-pre{background:#f4f4f4;padding:10px;overflow:auto}
+:root{
+  --bg:#0b0c0f; --panel:#0f1113; --accent:#00e6a6; --muted:#9aa1a6; --card:#0b0d10;
+  --mono:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+}
+*{box-sizing:border-box}
+body{background:linear-gradient(180deg,#050507,#0a0b0e);color:#d5d7d9;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;line-height:1.5;padding:24px}
+.wrap{max-width:920px;margin:0 auto}
+header{margin-bottom:18px}
+h1{font-family:var(--mono);color:var(--accent);letter-spacing:1px;margin:0;font-size:2.2rem}
+.tag{color:var(--muted);margin-top:6px}
+.card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:8px;margin:14px 0}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:start}
+pre{background:#071018;color:#bfeee0;padding:10px;border-radius:6px;overflow:auto;font-family:var(--mono);font-size:0.95rem}
+.btn{display:inline-block;margin-top:8px;padding:8px 12px;border-radius:6px;background:transparent;border:1px solid var(--accent);color:var(--accent);cursor:pointer}
+.btn:hover{background:rgba(0,230,166,0.06)}
+.pgp-block pre{max-height:260px}
+.note{color:var(--muted);font-size:0.95rem;margin-top:8px}
+.small{padding:10px;font-size:0.95rem}
+.muted{color:var(--muted)}
