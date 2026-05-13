@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -15,9 +14,7 @@
 <div id="hat-bg"><div id="hat-bg-inner"></div></div>
 
 <!-- Hat PNG — flies in then becomes background watermark -->
-
 <!-- src is swapped by JS based on the active hat -->
-
 <img id="hat-symbol" src="" alt="" aria-hidden="true">
 
 <div id="hat-label"></div>
@@ -31,7 +28,6 @@
   </header>
 
   <!-- Live status banner — shown when a hat is active -->
-
   <div id="status-banner" role="status" aria-live="polite">
     <div id="status-banner-row">
       <span id="status-hat-name"></span>
@@ -41,101 +37,99 @@
 
   <main class="panel">
 
-
-<!-- About -->
-<section class="block about">
-  <h2>About</h2>
-  <div class="text">
-    <p>I don't have any qualifications — don't hire me.</p>
-    <p>Info</p>
-    <p>
-      This portfolio intentionally omits my Tox ID and my pseudonyms. Content here is
-      accessible only via its current temporary GitHub URL; use Tox for hiring or questions.
-    </p>
-  </div>
-</section>
-
-<!-- Services -->
-<section class="block">
-  <h2>Services</h2>
-  <div class="services-grid">
-
-    <div class="service-card">
-      <div class="service-icon">🛡️</div>
-      <p class="service-title">Protection</p>
-      <p class="service-desc">
-        Think someone's targeting you? Send me a Tox message with your name
-        (pseudonym is fine), who you think is behind it, what you think they're
-        planning, and what you need — whether that's scrubbing your info from the
-        web, securing your devices, or just advice on what to do next.
-      </p>
-      <p class="service-note">
-        For active emergencies: contact local authorities and national cyber units
-        first, then shut down your device if there's any chance it's compromised.
-      </p>
-      <div class="service-how">
-        <span class="service-how-label">via</span>
-        <span class="service-how-val">Tox — encrypted summary</span>
+    <!-- About -->
+    <section class="block about">
+      <h2>About</h2>
+      <div class="text">
+        <p>I don't have any qualifications — don't hire me.</p>
+        <p>Info</p>
+        <p>
+          This portfolio intentionally omits my Tox ID and my pseudonyms. Content here is
+          accessible only via its current temporary GitHub URL; use Tox for hiring or questions.
+        </p>
       </div>
-    </div>
+    </section>
 
-    <div class="service-card">
-      <div class="service-icon">🚨</div>
-      <p class="service-title">Hacker Snitching</p>
-      <p class="service-desc">
-        Know of a black hat causing real harm? Send me your evidence over Tox.
-        I'll review it, verify what I can, and where appropriate help route it to
-        the right federal services — FBI IC3, CISA, Europol EC3, or relevant
-        national CERTs. No vigilante stuff, just proper reporting channels.
-      </p>
-      <p class="service-note">
-        Only submit evidence you obtained legally. Do not send exploit code or
-        personal data beyond what's needed.
-      </p>
-      <div class="service-how">
-        <span class="service-how-label">via</span>
-        <span class="service-how-val">Tox — evidence + context</span>
+    <!-- Services -->
+    <section class="block">
+      <h2>Services</h2>
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <p class="service-title">Protection</p>
+          <p class="service-desc">
+            Think someone's targeting you? Send me a Tox message with your name
+            (pseudonym is fine), who you think is behind it, what you think they're
+            planning, and what you need — whether that's scrubbing your info from the
+            web, securing your devices, or just advice on what to do next.
+          </p>
+          <p class="service-note">
+            For active emergencies: contact local authorities and national cyber units
+            first, then shut down your device if there's any chance it's compromised.
+          </p>
+          <div class="service-how">
+            <span class="service-how-label">via</span>
+            <span class="service-how-val">Tox — encrypted summary</span>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🚨</div>
+          <p class="service-title">Hacker Snitching</p>
+          <p class="service-desc">
+            Know of a black hat causing real harm? Send me your evidence over Tox.
+            I'll review it, verify what I can, and where appropriate help route it to
+            the right federal services — FBI IC3, CISA, Europol EC3, or relevant
+            national CERTs. No vigilante stuff, just proper reporting channels.
+          </p>
+          <p class="service-note">
+            Only submit evidence you obtained legally. Do not send exploit code or
+            personal data beyond what's needed.
+          </p>
+          <div class="service-how">
+            <span class="service-how-label">via</span>
+            <span class="service-how-val">Tox — evidence + context</span>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🔍</div>
+          <p class="service-title">Vulnerability Reports</p>
+          <p class="service-desc">
+            Think a website has a security flaw? Send me the URL and what made you
+            suspicious. I'll look into it — if something's wrong I'll work with the
+            company directly on how to fix it, or coordinate with vendors and CERTs.
+            Responsible disclosure only.
+          </p>
+          <p class="service-note">
+            Include: affected domain, what you noticed, and reproduction steps if you
+            have them. No exploit code. Safe PoC samples only, encrypted.
+          </p>
+          <div class="service-how">
+            <span class="service-how-label">via</span>
+            <span class="service-how-val">Tox — URL + details</span>
+          </div>
+        </div>
+
       </div>
-    </div>
+    </section>
 
-    <div class="service-card">
-      <div class="service-icon">🔍</div>
-      <p class="service-title">Vulnerability Reports</p>
-      <p class="service-desc">
-        Think a website has a security flaw? Send me the URL and what made you
-        suspicious. I'll look into it — if something's wrong I'll work with the
-        company directly on how to fix it, or coordinate with vendors and CERTs.
-        Responsible disclosure only.
-      </p>
-      <p class="service-note">
-        Include: affected domain, what you noticed, and reproduction steps if you
-        have them. No exploit code. Safe PoC samples only, encrypted.
-      </p>
-      <div class="service-how">
-        <span class="service-how-label">via</span>
-        <span class="service-how-val">Tox — URL + details</span>
+    <!-- Contact -->
+    <section class="block contact">
+      <h2>Contact — Tox only</h2>
+      <div class="grid">
+        <div class="card idcard">
+          <strong>Tox ID</strong>
+          <pre id="tox">46FFE626C0156C45E91411DC26DEAA6885DC86C76FB0903C0E34C2D4C5685A3017EBBC377C04</pre>
+          <button class="btn" data-copy="#tox">Copy Tox ID</button>
+          <p class="hint">
+            Use Tox for encrypted conversation. Note: Tox lets the other person see
+            your IP address — use a VPN if that matters to you.
+          </p>
+        </div>
       </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- Contact -->
-<section class="block contact">
-  <h2>Contact — Tox only</h2>
-  <div class="grid">
-    <div class="card idcard">
-      <strong>Tox ID</strong>
-      <pre id="tox">46FFE626C0156C45E91411DC26DEAA6885DC86C76FB0903C0E34C2D4C5685A3017EBBC377C04</pre>
-      <button class="btn" data-copy="#tox">Copy Tox ID</button>
-      <p class="hint">
-        Use Tox for encrypted conversation. Note: Tox lets the other person see
-        your IP address — use a VPN if that matters to you.
-      </p>
-    </div>
-  </div>
-</section>
-
+    </section>
 
   </main>
 
@@ -378,6 +372,5 @@ document.addEventListener("click", function(e) {
   });
 });
 </script>
-
 </body>
 </html>
