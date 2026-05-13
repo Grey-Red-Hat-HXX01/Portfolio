@@ -127,8 +127,8 @@ body {
 }
 #hat-label img {
   display: block;
-  width: 34px;
-  height: 34px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
