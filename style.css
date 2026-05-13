@@ -11,8 +11,6 @@
   --accent-glow:   rgba(0,255,187,0.20);
   --glitch1:       #ff3b3b;
   --glitch2:       #33d0ff;
-  --hat-color:     transparent;
-  --hat-color-mid: transparent;
   --mono:          "Share Tech Mono", "Courier New", monospace;
   --display:       "VT323", monospace;
   --body:          "Exo 2", system-ui, sans-serif;
@@ -37,6 +35,8 @@ body {
 
 /* ═══════════════════════════════════════════════════════════
    HAT BACKGROUND GLOW
+   Note: bg color is set directly via JS style on #hat-bg-inner
+   instead of CSS variables, for reliable mobile repaints
 ═══════════════════════════════════════════════════════════ */
 #hat-bg {
   position: fixed;
@@ -48,81 +48,89 @@ body {
   overflow: hidden;
 }
 #hat-bg.visible { opacity: 1; }
+
 #hat-bg-inner {
   position: absolute;
-  inset: -40px;
-  background: radial-gradient(ellipse 70% 70% at 50% 40%,
-    var(--hat-color) 0%, var(--hat-color-mid) 40%, transparent 70%);
-  filter: blur(60px) saturate(1.4);
-  transition: background var(--ts) ease;
+  inset: -60px;
+  /* background set directly by JS */
+  transition: background 1.4s ease;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   HAT IMAGE — flies in, settles as watermark
+   HAT WATERMARK IMAGE — flies in, settles behind content
 ═══════════════════════════════════════════════════════════ */
 #hat-symbol {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -60%) scale(0.4);
-  width: clamp(200px, 30vw, 380px);
+  transform: translate(-50%, -60%) scale(0.3);
+  width: 55vw;
+  max-width: 320px;
+  min-width: 120px;
   height: auto;
   opacity: 0;
   z-index: 1;
   pointer-events: none;
-  filter: blur(2px) drop-shadow(0 0 60px var(--accent-glow));
   user-select: none;
   will-change: transform, opacity;
   transition:
-    opacity 0.3s ease,
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s ease,
-    width var(--ts) ease;
+    opacity 0.4s ease,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 #hat-symbol.entering {
-  opacity: 0.92;
+  opacity: 0.9;
   transform: translate(-50%, -50%) scale(1);
-  filter: blur(0px) drop-shadow(0 0 60px var(--accent-glow));
 }
 #hat-symbol.settled {
-  opacity: 0.045;
-  transform: translate(-50%, -50%) scale(1.2);
-  filter: blur(5px) drop-shadow(0 0 80px var(--accent-glow));
-  width: clamp(360px, 52vw, 680px);
+  opacity: 0.04;
+  transform: translate(-50%, -50%) scale(1.15);
+  width: 80vw;
+  max-width: 500px;
   transition:
-    opacity 1s ease,
-    transform 1s ease,
-    filter 1s ease,
-    width 1s ease;
+    opacity 1.2s ease,
+    transform 1.2s ease,
+    width 1.2s ease;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   HAT BADGE — top right
+   HAT BADGE — top right circle with PNG inside
 ═══════════════════════════════════════════════════════════ */
 #hat-label {
   position: fixed;
-  top: 20px;
-  right: 24px;
+  top: 14px;
+  right: 14px;
   z-index: 20;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  padding: 4px 12px;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.80);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   opacity: 0;
-  transform: translateY(-8px);
+  transform: scale(0.7);
   transition:
-    opacity 0.5s ease,
-    transform 0.5s ease,
-    color var(--ts) ease,
+    opacity 0.4s ease,
+    transform 0.4s ease,
     border-color var(--ts) ease;
+  overflow: hidden;
+  /* flexbox to center the img */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-#hat-label.visible { opacity: 1; transform: translateY(0); }
+#hat-label.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+#hat-label img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
 
 /* ═══════════════════════════════════════════════════════════
    STATUS BANNER
@@ -134,6 +142,7 @@ body {
   border-left: 3px solid var(--accent);
   background: rgba(0, 0, 0, 0.38);
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: none;
   opacity: 0;
   transform: translateY(-6px);
@@ -199,9 +208,9 @@ body {
 
 .glow {
   font-family: var(--display);
-  font-size: clamp(3.6rem, 7.5vw, 5.6rem);
+  font-size: clamp(2.6rem, 8vw, 5.6rem);
   margin: 0;
-  letter-spacing: 7px;
+  letter-spacing: 5px;
   color: var(--white);
   text-shadow:
     0 0 16px var(--accent-glow),
@@ -213,7 +222,7 @@ body {
 
 .alias {
   font-family: var(--mono);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   color: var(--accent);
   letter-spacing: 3px;
   margin-top: 6px;
@@ -223,8 +232,8 @@ body {
 .sub {
   color: var(--muted);
   margin-top: 5px;
-  font-size: 0.85rem;
-  letter-spacing: 2.5px;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
   font-family: var(--mono);
 }
@@ -238,6 +247,7 @@ body {
   padding: 24px;
   border-radius: 10px;
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -247,8 +257,8 @@ body {
   margin: 20px 0;
   padding: 18px 20px;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255,255,255,0.03);
+  background: rgba(0,0,0,0.22);
 }
 .block:first-child { margin-top: 0; }
 .block:last-child  { margin-bottom: 0; }
@@ -264,7 +274,7 @@ body {
 }
 
 .text p {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   line-height: 1.75;
   color: #cccccc;
   margin: 0 0 10px;
@@ -277,20 +287,19 @@ body {
 ═══════════════════════════════════════════════════════════ */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
   margin-top: 4px;
 }
 
 .service-card {
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.05);
   border-radius: 8px;
-  padding: 18px;
-  background: rgba(0, 0, 0, 0.30);
+  padding: 16px;
+  background: rgba(0,0,0,0.30);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: border-color 0.3s ease;
   position: relative;
   overflow: hidden;
 }
@@ -301,19 +310,14 @@ body {
   height: 2px;
   background: linear-gradient(90deg, var(--accent), transparent);
   opacity: 0.35;
-  transition: opacity var(--ts) ease, background var(--ts) ease;
+  transition: opacity var(--ts) ease;
 }
-.service-card:hover { border-color: rgba(255, 255, 255, 0.10); }
-.service-card:hover::before { opacity: 0.65; }
 
-.service-icon {
-  font-size: 1.6rem;
-  line-height: 1;
-}
+.service-icon { font-size: 1.5rem; line-height: 1; }
 
 .service-title {
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--accent);
@@ -322,8 +326,8 @@ body {
 }
 
 .service-desc {
-  font-size: 0.92rem;
-  line-height: 1.68;
+  font-size: 0.9rem;
+  line-height: 1.65;
   color: #bbbbbb;
   font-weight: 300;
   flex: 1;
@@ -331,9 +335,9 @@ body {
 }
 
 .service-note {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   line-height: 1.6;
-  color: #777777;
+  color: #666666;
   font-weight: 300;
   margin: 0;
 }
@@ -342,43 +346,41 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
   padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255,255,255,0.04);
 }
 .service-how-label {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted-light);
 }
 .service-how-val {
   font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 1px;
+  font-size: 0.70rem;
   color: var(--accent);
   transition: color var(--ts) ease;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   CONTACT CARD
+   CONTACT
 ═══════════════════════════════════════════════════════════ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
   gap: 14px;
 }
 
 .card {
-  border: 1px dashed rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255,255,255,0.06);
   padding: 16px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.30);
+  background: rgba(0,0,0,0.30);
 }
 .card strong {
   font-family: var(--mono);
-  font-size: 0.70rem;
+  font-size: 0.68rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--accent);
@@ -390,14 +392,14 @@ body {
 .idcard pre {
   background: #050505;
   color: var(--white);
-  padding: 12px;
+  padding: 10px;
   border-radius: 6px;
   font-family: var(--mono);
-  font-size: 0.78rem;
-  overflow: auto;
+  font-size: 0.72rem;
+  overflow-x: auto;
   word-break: break-all;
   white-space: pre-wrap;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255,255,255,0.04);
   margin: 0;
 }
 
@@ -411,18 +413,15 @@ body {
   cursor: pointer;
   font-weight: 600;
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   letter-spacing: 1px;
-  transition:
-    background 0.2s ease,
-    color var(--ts) ease,
-    border-color var(--ts) ease;
+  transition: background 0.2s ease, color var(--ts) ease, border-color var(--ts) ease;
 }
 .btn:hover { background: var(--accent-dim); }
 
 .hint {
   color: var(--muted-light);
-  font-size: 0.82rem;
+  font-size: 0.80rem;
   margin-top: 10px;
   line-height: 1.55;
 }
@@ -434,7 +433,7 @@ body {
 
 .small {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   text-align: center;
   padding: 8px;
 }
@@ -443,26 +442,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   padding: 6px 0 10px;
-  opacity: 0.55;
-  transition: opacity 0.3s ease;
+  opacity: 0.5;
 }
-.hat-container:hover { opacity: 0.85; }
-
-.hat-image {
-  height: 36px;
-  width: auto;
-  filter: grayscale(0.3) brightness(0.9);
-  transition: filter 0.3s ease;
-}
-.hat-image:hover { filter: grayscale(0) brightness(1.1); }
+.hat-image { height: 32px; width: auto; }
 .hat-container span { color: var(--muted); font-family: var(--mono); }
 
 .hat-tag {
   color: var(--accent);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.70rem;
   letter-spacing: 3px;
   text-align: center;
   text-transform: uppercase;
@@ -493,10 +483,9 @@ body {
   position: fixed;
   left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
   opacity: 0.04;
   pointer-events: none;
-  filter: blur(0.5px);
   z-index: 5;
   animation: scanmove 9s linear infinite;
 }
@@ -512,17 +501,42 @@ body {
 ═══════════════════════════════════════════════════════════ */
 @keyframes flicker {
   0%, 100% { opacity: 1; }
-  49.9%    { opacity: 1; }
   50%      { opacity: 0.975; }
   72%      { opacity: 0.988; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   RESPONSIVE
+   MOBILE
 ═══════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
-  body { padding: 18px 16px; }
-  .glow { letter-spacing: 4px; }
-  #hat-label { font-size: 0.68rem; right: 10px; top: 10px; }
+  body { padding: 16px 14px; }
+
+  .glow { letter-spacing: 2px; }
+  .alias { font-size: 0.75rem; letter-spacing: 2px; }
+  .sub { font-size: 0.72rem; }
+
+  /* Badge smaller on mobile */
+  #hat-label { width: 44px; height: 44px; top: 10px; right: 10px; }
+  #hat-label img { width: 28px; height: 28px; }
+
+  /* Watermark smaller on mobile */
+  #hat-symbol { width: 70vw; max-width: 220px; }
+  #hat-symbol.settled { width: 90vw; max-width: 320px; }
+
+  /* Status banner */
+  #status-reason { font-size: 0.82rem; }
+  #status-hat-name { font-size: 0.65rem; }
+
+  /* Services one column */
   .services-grid { grid-template-columns: 1fr; }
+
+  /* Less padding */
+  .panel { padding: 12px; }
+  .block { padding: 12px 14px; }
+
+  /* Tox ID smaller text */
+  .idcard pre { font-size: 0.65rem; }
+
+  /* Footer hats smaller */
+  .hat-image { height: 26px; }
 }
